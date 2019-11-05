@@ -15,7 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(JUnit4.class)
 public class WebDriverTest {
@@ -72,14 +72,14 @@ public class WebDriverTest {
 
     @Test
     public void testWorkspacesPresence() {
-        assertTrue(driver.findElements(
-                By.xpath("//a[@data-testing-uid='" + ORDER_TO_CASH_ID_VALUE + "']")).size() == 1);
+        assertEquals(1, driver.findElements(
+                By.xpath("//a[@data-testing-uid='" + ORDER_TO_CASH_ID_VALUE + "']")).size());
 
-        assertTrue(driver.findElements(
-                By.xpath("//a[@data-testing-uid='" + PURCHASE_TO_PAY_ID_VALUE + "']")).size() == 1);
+        assertEquals(1, driver.findElements(
+                By.xpath("//a[@data-testing-uid='" + PURCHASE_TO_PAY_ID_VALUE + "']")).size());
 
-        assertTrue(driver.findElements(
-                By.xpath("//a[@data-testing-uid='" + SERVICE_NOW_TICKETING_ID_VALUE + "']")).size() == 1);
+        assertEquals(1, driver.findElements(
+                By.xpath("//a[@data-testing-uid='" + SERVICE_NOW_TICKETING_ID_VALUE + "']")).size());
     }
 
     @Test
