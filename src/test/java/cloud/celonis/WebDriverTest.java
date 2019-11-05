@@ -22,19 +22,21 @@ public class WebDriverTest {
 
     private static int TIMEOUT = 5; // in seconds
 
-    private static String ELEMENT_1_ID_VALUE =
+    private static String ORDER_TO_CASH_ID_VALUE =
             "analysisListComponent-analysisName-Order to Cash - Process Overview (EUR) - EN-button";
-    private static String ELEMENT_2_ID_VALUE =
+    private static String PURCHASE_TO_PAY_ID_VALUE =
             "analysisListComponent-analysisName-Purchase to Pay - Demo - EN (EUR)-button";
-    private static String ELEMENT_3_ID_VALUE =
+    private static String SERVICE_NOW_TICKETING_ID_VALUE =
             "analysisListComponent-analysisName-ServiceNow - Ticket Status-button";
+    private static String VARIANT_EXPLORER_COMPONENT_ID_VALUE = "variantExplorer-component-variantExplorerComponent";
 
     private WebDriver driver;
     private WebDriverWait wait;
 
     @BeforeClass
     public static void setUp() {
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\Elena\\Desktop\\CelonisTest\\seleniumdriver\\chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver",
+                "C:\\Users\\Elena\\Desktop\\CelonisTest\\seleniumdriver\\chromedriver.exe");
     }
 
     @Before
@@ -44,7 +46,7 @@ public class WebDriverTest {
 
         wait = new WebDriverWait(driver, TIMEOUT);
 
-        driver.get("https://applications.eu-1.celonis.cloud/ui/login");
+        driver.get("https://applications.eu-1.celonis.cloud/");
         wait.until(ExpectedConditions.textToBePresentInElement(
                 driver.findElement(By.tagName("body")), "Sign in - Celonis"));
 
@@ -70,40 +72,43 @@ public class WebDriverTest {
 
     @Test
     public void testWorkspacesPresence() {
-        assertTrue(
-                driver.findElements(
-                        By.xpath("//a[@data-testing-uid='" + ELEMENT_1_ID_VALUE + "']")).size() == 1);
+        assertTrue(driver.findElements(
+                By.xpath("//a[@data-testing-uid='" + ORDER_TO_CASH_ID_VALUE + "']")).size() == 1);
 
-        assertTrue(
-                driver.findElements(
-                        By.xpath("//a[@data-testing-uid='" + ELEMENT_2_ID_VALUE + "']")).size() == 1);
+        assertTrue(driver.findElements(
+                By.xpath("//a[@data-testing-uid='" + PURCHASE_TO_PAY_ID_VALUE + "']")).size() == 1);
 
-        assertTrue(
-                driver.findElements(
-                        By.xpath("//a[@data-testing-uid='" + ELEMENT_3_ID_VALUE + "']")).size() == 1);
+        assertTrue(driver.findElements(
+                By.xpath("//a[@data-testing-uid='" + SERVICE_NOW_TICKETING_ID_VALUE + "']")).size() == 1);
     }
 
     @Test
     public void testOrderToCash() {
-        WebElement processOverviewLink = driver.findElement(By.xpath("//a[@data-testing-uid='" + ELEMENT_1_ID_VALUE + "']"));
-        processOverviewLink.click();
+        WebElement orderToCashLink =
+                driver.findElement(By.xpath("//a[@data-testing-uid='" + ORDER_TO_CASH_ID_VALUE + "']"));
+        orderToCashLink.click();
 
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@data-testing-uid='variantExplorer-component-variantExplorerComponent']")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.xpath("//div[@data-testing-uid='" + VARIANT_EXPLORER_COMPONENT_ID_VALUE + "']")));
     }
 
     @Test
     public void testPurchaseToPay() {
-        WebElement demoEnLink = driver.findElement(By.xpath("//a[@data-testing-uid='" + ELEMENT_2_ID_VALUE + "']"));
-        demoEnLink.click();
+        WebElement purchaseToPayLink = driver.findElement(
+                By.xpath("//a[@data-testing-uid='" + PURCHASE_TO_PAY_ID_VALUE + "']"));
+        purchaseToPayLink.click();
 
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@data-testing-uid='variantExplorer-component-variantExplorerComponent']")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.xpath("//div[@data-testing-uid='" + VARIANT_EXPLORER_COMPONENT_ID_VALUE + "']")));
     }
 
     @Test
     public void testServiceNowTicketing() {
-        WebElement ticketStatusLink = driver.findElement(By.xpath("//a[@data-testing-uid='" + ELEMENT_3_ID_VALUE + "']"));
-        ticketStatusLink.click();
+        WebElement serviceNowTicketingLink = driver.findElement(
+                By.xpath("//a[@data-testing-uid='" + SERVICE_NOW_TICKETING_ID_VALUE + "']"));
+        serviceNowTicketingLink.click();
 
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@data-testing-uid='variantExplorer-component-variantExplorerComponent']")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.xpath("//div[@data-testing-uid='" + VARIANT_EXPLORER_COMPONENT_ID_VALUE + "']")));
     }
 }
